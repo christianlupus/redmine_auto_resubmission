@@ -47,10 +47,11 @@ module RedmineAutoResubmission
       issues.each do |issue|
       
         # mark issue with resubmission notice
+        Rails.logger.info "Mark1 (calc_all_resubmission_dates)"
         new_journal = issue.init_journal( User.current, new_notice )
+        Rails.logger.info "Mark2 (calc_all_resubmission_dates)"
         new_journal.save # save journal triggers update_at field of parent issue
-
-        Rails.logger.info "foo"
+        Rails.logger.info "Mark3 (calc_all_resubmission_dates)"
         
         # update issue status without triggering call_backs
         issue.update_columns({:status_id => new_status_id, :updated_on => Time.now}.compact)
