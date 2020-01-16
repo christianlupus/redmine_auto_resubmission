@@ -51,6 +51,9 @@ module RedmineAutoResubmissionIssuePatch
           if resubmission_rule && resubmission_date
           
             new_date, new_rule = RedmineAutoResubmission::calcfuturedate( resubmission_date.value, resubmission_rule.value )
+
+            #File.open('/tmp/resub.log','a') { |f| f.write(resubmission_date.value) }
+            Rails.logger.info "#{resubmission_date.value} #{resubmission_rule.value} -> #{new_date} #{new_rule}"
             
             resubmission_rule.value= new_rule                      if new_rule
             resubmission_date.value= new_date.strftime("%Y-%m-%d") if new_date
