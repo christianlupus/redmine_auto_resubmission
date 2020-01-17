@@ -57,9 +57,11 @@ module RedmineAutoResubmissionIssuePatch
           ##########################################################
           # resubmission dates                                     #
           ##########################################################
-          if resubmission_rule.present?
+          if resubmission_rule.present? && resubmission_date.present?
           
-            new_date, new_rule = RedmineAutoResubmission::calcfuturedate( resubmission_date.value, resubmission_rule.value )
+            old_date = resubmission_date.value
+            old_rule = resubmission_rule.value
+            new_date, new_rule = RedmineAutoResubmission::calcfuturedate( old_date, old_rule )
             resubmission_rule.value= new_rule                      if new_rule
             resubmission_date.value= new_date.strftime("%Y-%m-%d") if new_date
             @custom_field_values_changed= true                     if new_rule || new_date
