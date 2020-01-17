@@ -40,6 +40,8 @@ module RedmineAutoResubmissionIssuePatch
       
         def update_date_fields
           
+          Rails.logger.info "Mark1 (update_date_fields)"
+
           resubmission_date, 
           resubmission_rule,
           start_date_rule,
@@ -48,7 +50,6 @@ module RedmineAutoResubmissionIssuePatch
           ##########################################################
           # resubmission dates                                     #
           ##########################################################
-          Rails.logger.info "Mark1 (update_date_fields)"
           if resubmission_rule
           
             new_date, new_rule = RedmineAutoResubmission::calcfuturedate( resubmission_date.value, resubmission_rule.value )
